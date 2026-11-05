@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Token Scanner</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f1f3f5;
+      color: #222;
+    }
+
+    main {
+      max-width: 480px;
+      margin: 30px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 3px 15px #0001;
+    }
+
+    h1 { font-size: 27px; }
+
+    input {
+      width: 100%;
+      padding: 18px;
+      font-size: 25px;
+      text-align: center;
+      border: 2px solid #bbb;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    #result {
+      padding: 25px 10px;
+      border-radius: 12px;
+      font-size: 25px;
+      font-weight: bold;
+      min-height: 90px;
+      background: #eee;
+    }
+
+    .valid { background: #d4edda !important; color: #155724; }
+    .used { background: #f8d7da !important; color: #721c24; }
+    .unknown { background: #fff3cd !important; color: #856404; }
+
+    .info {
+      margin-top: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<main>
+  <h1>TOKEN SCANNER</h1>
+  <p>Scan een QR-code of barcode</p>
+
+  <input
+    id="token"
+    type="text"
+    placeholder="Scan hier..."
+    autocomplete="off"
+    autofocus
+  >
+
+  <div id="result">Klaar om te scannen</div>
+
+  <div class="info">
+    Aantal scans: <strong id="count">0</strong>
+  </div>
+</main>
+
+<script>
+  const input = document.getElementById("token");
+  const result = document.getElementById("result");
+  const countDisplay = document.getElementById("count");
+
+  let count = 0;
+
+  // Tijdelijke testgegevens
+  const tokens = [
+    { token: "8003", registered: true, used: false },
+    { token: "8004", registered: true, used: true }
+  ];
+
+  function scan() {
+    const value = input.value.trim();
+    if (!value) return;
+
+    count++;
+    countDisplay.textContent = count;
+
+    const found = tokens.find(item => item.token === value);
+
+    result.className = "";
+
+    if (!found) {
+      result.className = "unknown";
+      result.textContent = "ONBEKEND TOKEN";
+    } else if (!found.registered) {
+      result.className = "unknown";
+      result.textContent = "NIET GEREGISTREERD";
+    } else if (found.used) {
+      result.className = "used";
+      result.textContent = "REEDS GEBRUIKT";
+    } else {
+      found.used = true;
+      result.className = "valid";
+      result.textContent = "GELDIG - EERSTE SCAN";
+    }
+
+    input.value = "";
+    input.focus();
+  }
+
+  input.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      scan();
+    }
+  });
+
+  document.addEventListener("click", () => input.focus());
+</script>
+
+</body>
+</html>
