@@ -87,7 +87,7 @@
   let count = 0;
 
   // Tijdelijke testgegevens
-  const tokens = [
+  let tokens = [
     { token: "9040", registered: true, used: false },
     { token: "9050", registered: true, used: false },
     { token: "9060", registered: true, used: false },
@@ -116,6 +116,7 @@
       result.textContent = "REEDS GEBRUIKT";
     } else {
       found.used = true;
+       saveTokens();
       result.className = "valid";
       result.textContent = "GELDIG - EERSTE SCAN";
     }
@@ -132,6 +133,22 @@
   });
 
   document.addEventListener("click", () => input.focus());
+
+function saveTokens() {
+    localStorage.setItem("tokens", JSON.stringify(tokens));
+}
+
+function loadTokens() {
+    const saved = localStorage.getItem("tokens");
+
+    if (saved) {
+        tokens = JSON.parse(saved);
+    }
+}  
+
+loadTokens();
+
+  
 </script>
 
 </body>
