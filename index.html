@@ -110,9 +110,6 @@
     if (!found) {
       result.className = "unknown";
       result.textContent = "ONBEKEND TOKEN";
-    } else if (!found.registered) {
-      result.className = "unknown";
-      result.textContent = "NIET GEREGISTREERD";
     } else if (found.used) {
       result.className = "used";
       result.textContent = "REEDS GEBRUIKT\n" + found.scannedAt;
@@ -153,7 +150,7 @@ function loadTokens() {
 
 
   function downloadCSV() {
-    let csv = "Token;Geregistreerd;Gebruikt;Datum scan\n";
+    let csv = "Token;Gebruikt;Datum scan\n";
 
     tokens.forEach(item => {
         csv += [
