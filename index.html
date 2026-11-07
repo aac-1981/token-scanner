@@ -78,6 +78,7 @@
   <div class="info">
     Aantal scans: <strong id="count">0</strong>
   </div>
+  <button onclick="downloadCSV()">Download CSV</button>
 </main>
 
 <script>
@@ -149,6 +150,35 @@ function loadTokens() {
         tokens = JSON.parse(saved);
     }
 }  
+
+
+  function downloadCSV() {
+    let csv = "Token;Geregistreerd;Gebruikt;Datum scan\n";
+
+    tokens.forEach(item => {
+        csv += [
+            item.token,
+            item.registered ? "Ja" : "Nee",
+            item.used ? "Ja" : "Nee",
+            item.scannedAt || ""
+        ].join(";") + "\n";
+    });
+
+    // BOM toevoegen zodat Excel de tekens correct herkent
+    const blob = new Blob(["\uFEFF" + csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "tokenoverzicht.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+  
 
 loadTokens();
 
