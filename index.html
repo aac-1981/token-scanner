@@ -136,11 +136,14 @@
 
 function saveTokens() {
     localStorage.setItem("tokens", JSON.stringify(tokens));
+    console.log("Opgeslagen:", localStorage.getItem("tokens"));
 }
 
 function loadTokens() {
     const saved = localStorage.getItem("tokens");
 
+  console.log("Terug ingelezen:", saved);
+  
     if (saved) {
         tokens = JSON.parse(saved);
     }
