@@ -90,10 +90,10 @@
 
   // Tijdelijke testgegevens
   let tokens = [
-    { token: "9040", registered: true, used: false, scannedAt: null },
-    { token: "9050", registered: true, used: false, scannedAt: null },
-    { token: "9060", registered: true, used: false, scannedAt: null },
-    { token: "4030958", registered: true, used: false, scannedAt: null }
+    { token: "9040", used: false, scannedAt: null },
+    { token: "9050", used: false, scannedAt: null },
+    { token: "9060", used: false, scannedAt: null },
+    { token: "4030958", used: false, scannedAt: null }
   ];
 
   function scan() {
@@ -158,7 +158,6 @@ function loadTokens() {
     tokens.forEach(item => {
         csv += [
             item.token,
-            item.registered ? "Ja" : "Nee",
             item.used ? "Ja" : "Nee",
             item.scannedAt || ""
         ].join(";") + "\n";
