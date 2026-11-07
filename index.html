@@ -88,10 +88,10 @@
 
   // Tijdelijke testgegevens
   let tokens = [
-    { token: "9040", registered: true, used: false },
-    { token: "9050", registered: true, used: false },
-    { token: "9060", registered: true, used: false },
-    { token: "4030958", registered: true, used: false }
+    { token: "9040", registered: true, used: false, scannedAt: null },
+    { token: "9050", registered: true, used: false, scannedAt: null },
+    { token: "9060", registered: true, used: false, scannedAt: null },
+    { token: "4030958", registered: true, used: false, scannedAt: null }
   ];
 
   function scan() {
@@ -116,6 +116,7 @@
       result.textContent = "REEDS GEBRUIKT";
     } else {
       found.used = true;
+      found.scannedAt = new Date().toLocaleString("nl-BE");
        saveTokens();
       result.className = "valid";
       result.textContent = "GELDIG - EERSTE SCAN";
