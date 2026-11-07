@@ -141,9 +141,7 @@ function saveTokens() {
 
 function loadTokens() {
     const saved = localStorage.getItem("tokens");
-
-  console.log("Terug ingelezen:", saved);
-  alert("TERUGGELEZEN: " + saved);
+    console.log("Terug ingelezen:", saved);
   
     if (saved) {
         tokens = JSON.parse(saved);
