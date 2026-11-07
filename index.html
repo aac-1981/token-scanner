@@ -113,7 +113,7 @@
       result.textContent = "NIET GEREGISTREERD";
     } else if (found.used) {
       result.className = "used";
-      result.textContent = "REEDS GEBRUIKT - " + found.scannedAt";
+      result.textContent = "REEDS GEBRUIKT - + found.scannedAt";
     } else {
       found.used = true;
       found.scannedAt = new Date().toLocaleString("nl-BE");
